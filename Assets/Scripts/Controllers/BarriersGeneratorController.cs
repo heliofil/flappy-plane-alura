@@ -7,8 +7,23 @@ public class BarriersGeneratorController : MonoBehaviour
     [SerializeField]
     private float timeToNew; 
     private float timer = 0;
+    private static BarriersGeneratorController instance = null;
 
-    void ResetTimer() {
+    public static BarriersGeneratorController GetInstance() {
+        if(instance == null) {
+            instance = FindObjectOfType<BarriersGeneratorController>();
+        }
+
+        return instance;
+
+    }
+
+    public void ReNew() {
+        timer = 0;
+        DestroyAllBarries();
+    }
+
+    private void SetNewTime() {
         timer = Random.Range(Utils.BARRIERS_TIME_TO_NEW_MIN,Utils.BARRIERS_TIME_TO_NEW_MAX);
     }
 
@@ -19,9 +34,17 @@ public class BarriersGeneratorController : MonoBehaviour
         if(timer < 0 ) {
             float offSet = Random.Range(Utils.BARRIERS_OFFSET_MIN,Utils.BARRIERS_OFFSET_MAX);
             BarriersController.CreateInstance(transform.position,offSet);
-            ;
-            ResetTimer();
-
+            SetNewTime();
         }
     }
+
+    private void DestroyAllBarries() {
+
+        BarriersController[] barriersList = FindObjectsOfType<BarriersController>();
+        foreach(BarriersController barriers in barriersList) {
+            barriers.SelfDestroy();
+        }
+
+    }
+
 }

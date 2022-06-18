@@ -23,7 +23,10 @@ public class BarriersController :MonoBehaviour {
         this.offSet = offet;
     }
 
-    // Start is called before the first frame update
+    public void SelfDestroy() {
+        Destroy(gameObject);
+    }
+
     void Start() => transform.Translate(Vector3.up * this.offSet);
 
     void Update() {
@@ -31,5 +34,7 @@ public class BarriersController :MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
+    
 
 }
