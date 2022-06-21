@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,11 @@ public class UIController: MonoBehaviour
 {
 
     private static UIController instance = null;
+
+    private TextMeshProUGUI scoreText;
+    private GameObject gameOver;
+    private int score;
+    public AudioClip SoundScore;
 
     public static UIController GetInstance() {
         if(instance == null) {
@@ -17,9 +23,16 @@ public class UIController: MonoBehaviour
 
     }
 
+    public void AddScore() {
+        score++;
+        scoreText.text = score.ToString();
+        AudioSourceController.Instance.PlayOneShot(SoundScore);
+    }
+
+
     public void GameOver() {
         Time.timeScale = 0f;
-        SetGameOver(true);
+        gameOver.SetActive(true);
         PlaneController.GetInstance().SetPhysics(false);
     }
 
@@ -30,18 +43,20 @@ public class UIController: MonoBehaviour
 
     public void Restart() {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        SetGameOver(false);
-        
+        gameOver = transform.GetChild(0).gameObject;
+        scoreText = transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        score = 0;
+        scoreText.text = score.ToString();
+        gameOver.SetActive(false);
         Time.timeScale = 1;
+        ReNew();
     }
 
     void Start() {
         Restart();
     }
 
-    private void SetGameOver(bool isGameOver) {
-        transform.GetChild(0).gameObject.SetActive(isGameOver);
-    }
+   
 
 
 

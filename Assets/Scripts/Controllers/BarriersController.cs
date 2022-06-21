@@ -6,6 +6,7 @@ public class BarriersController :MonoBehaviour {
 
     [SerializeField]
     private float offSet;
+    private bool isScore = true;
 
 
     public static void CreateInstance(Vector3 position,float offet) {
@@ -30,10 +31,19 @@ public class BarriersController :MonoBehaviour {
     void Start() => transform.Translate(Vector3.up * this.offSet);
 
     void Update() {
+        
+        if((PlaneController.GetInstance().GetFinalPostion() > transform.position.x) && (isScore)) {
+            UIController.GetInstance().AddScore();
+            isScore = false;
+        }
+        
+        
         if(transform.position.x < Utils.BARRIERS_DESTROY_POSITION) {
             Destroy(gameObject);
         }
     }
+
+
 
     
 

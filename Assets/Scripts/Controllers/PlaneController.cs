@@ -11,6 +11,8 @@ public class PlaneController : MonoBehaviour
 
     private static PlaneController instance = null;
 
+    private float finalPosition;
+
     public static PlaneController GetInstance() {
         if(instance == null) {
             instance = GameObject.FindWithTag(Utils.PLANE_TAG).GetComponent<PlaneController>();
@@ -19,6 +21,10 @@ public class PlaneController : MonoBehaviour
         return instance;
 
     }
+
+    public float GetFinalPostion() {
+        return finalPosition;
+    } 
 
     public void ReNew() {
         transform.position = Utils.PLANE_INIT;
@@ -32,6 +38,8 @@ public class PlaneController : MonoBehaviour
 
     private void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
+        transform.position = Utils.PLANE_INIT;
+        finalPosition = transform.position.x - (transform.localScale.x / 2);
     }
 
     // Update is called once per frame
@@ -45,7 +53,10 @@ public class PlaneController : MonoBehaviour
      }
 
     private void OnCollisionEnter2D(Collision2D collision) {
+
+        Debug.Log("end");
         UIController.GetInstance().GameOver();
+
     }
 
 

@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!114 &927818737675105587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ EdgeCollider2D:
   - {x: 0.2807124, y: -0.27423215}
   - {x: 0.22967328, y: -0.2687452}
   - {x: 0.2111286, y: -0.3145808}
-  - {x: 0.1514471, y: -0.34966737}
+  - {x: 0.1716566, y: -0.36987686}
   - {x: 0.08780422, y: -0.34563664}
   - {x: 0.037371635, y: -0.28130648}
   - {x: -0.11336309, y: -0.23877156}
