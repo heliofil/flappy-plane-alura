@@ -45,7 +45,7 @@ public class PlaneController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(Input.GetButtonDown("Fire1")) {
+        if(Input.GetButtonDown(Utils.BUTTON_FIRE_ONE)) {
             rigidbody.velocity = Vector2.zero;
             rigidbody.AddForce(Vector2.up * jump,ForceMode2D.Impulse);
         }
@@ -53,8 +53,6 @@ public class PlaneController : MonoBehaviour
      }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-
-        Debug.Log("end");
         UIController.GetInstance().GameOver();
 
     }

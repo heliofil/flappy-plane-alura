@@ -7,21 +7,30 @@ public class BarriersController :MonoBehaviour {
     [SerializeField]
     private float offSet;
     private bool isScore = true;
+    
 
-
-    public static void CreateInstance(Vector3 position,float offet) {
+    public static void CreateInstance(Vector3 position,float offet,float betweenSize,float velocity) {
         GameObject gameObject = Instantiate
             (Resources.Load<GameObject>(Utils.BARRIER_PATH),
             position,
             Quaternion.identity);
-        
-        gameObject.GetComponent<BarriersController>().SetOffset(offet);
-        gameObject.GetComponent<MovimentController>().SetVelocity(Utils.BARRIERS_VELOCITY);
+
+        gameObject.tag = Utils.BACKSCENE_TAG;
+
+        BarriersController barriersController = gameObject.GetComponent<BarriersController>();
+        barriersController.SetOffset(offet);
+        barriersController.SetBetweenSize(betweenSize);
+        gameObject.GetComponent<MovimentController>().SetVelocity(velocity);
     }
 
-    public void SetOffset(float offet) {
+    private void SetOffset(float offet) {
    
         this.offSet = offet;
+    }
+
+    private void SetBetweenSize(float betweenSize) {
+        transform.GetChild(0).transform.Translate(Vector3.down * betweenSize);
+        transform.GetChild(1).transform.Translate(Vector3.up * betweenSize);
     }
 
     public void SelfDestroy() {

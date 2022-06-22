@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3073354652738240345}
   - component: {fileID: 1240139587549128683}
   - component: {fileID: 758775500125897686}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: BackScene
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0426fe5eec7f54681f443c0d9db42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsBackGround: 1
+  IsBackground: 1
 --- !u!114 &758775500125897686
 MonoBehaviour:
   m_ObjectHideFlags: 0
