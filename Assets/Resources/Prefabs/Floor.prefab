@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: -6884489602128550611}
   - component: {fileID: 8815240117728485685}
   - component: {fileID: 3782099487036617917}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: BackScene
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0426fe5eec7f54681f443c0d9db42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsBackGround: 0
+  IsBackground: 0
 --- !u!60 &3782099487036617917
 PolygonCollider2D:
   m_ObjectHideFlags: 0

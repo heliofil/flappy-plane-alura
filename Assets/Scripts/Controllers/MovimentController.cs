@@ -13,7 +13,12 @@ public class MovimentController :MonoBehaviour {
         this.velocity = velocity;
     }
 
-   // Update is called once per frame
+    public void Accelerate(float acceletation) {
+            velocity += acceletation;
+    }
+
+
+    // Update is called once per frame
     void FixedUpdate() => transform.Translate(Vector3.left * this.velocity);
 
 
