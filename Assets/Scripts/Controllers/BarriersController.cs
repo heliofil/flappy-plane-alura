@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class BarriersController :MonoBehaviour {
 
+    public MovimentScriptable Velocity;
+    
     [SerializeField]
     private float offSet;
     private bool isScore = true;
-    
 
-    public static void CreateInstance(Vector3 position,float offet,float betweenSize,float velocity) {
+
+    public static void CreateInstance(Vector3 position,float offet,float betweenSize) {
         GameObject gameObject = Instantiate
-            (Resources.Load<GameObject>(Utils.BARRIER_PATH),
+            (Utils.BARRIER_LOAD,
             position,
             Quaternion.identity);
 
@@ -20,7 +22,6 @@ public class BarriersController :MonoBehaviour {
         BarriersController barriersController = gameObject.GetComponent<BarriersController>();
         barriersController.SetOffset(offet);
         barriersController.SetBetweenSize(betweenSize);
-        gameObject.GetComponent<MovimentController>().SetVelocity(velocity);
     }
 
     private void SetOffset(float offet) {
@@ -39,17 +40,24 @@ public class BarriersController :MonoBehaviour {
 
     void Start() => transform.Translate(Vector3.up * this.offSet);
 
-    void Update() {
-        
-        if((PlaneController.GetInstance().GetFinalPostion() > transform.position.x) && (isScore)) {
-            UIController.GetInstance().AddScore();
-            isScore = false;
-        }
-        
+    void FixedUpdate() {
         
         if(transform.position.x < Utils.BARRIERS_DESTROY_POSITION) {
             Destroy(gameObject);
         }
+
+        transform.Translate(Velocity.Move());
+
+
+        if(!isScore) {
+            return;
+        }
+        
+        if(PlaneController.GetInstance().GetFinalPostion() > transform.position.x) {
+            UIController.GetInstance().AddScore();
+            isScore = false;
+        }
+
     }
 
 

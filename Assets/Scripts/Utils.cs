@@ -13,17 +13,15 @@ public static class Utils {
     public const float BARRIERS_DESTROY_POSITION = -14f;
     public const float BARRIERS_OFFSET_MAX = 2.1f;
     public const float BARRIERS_OFFSET_MIN = -1.7f;
-    public const float BARRIERS_OFFSET_BETWEEN_REDUCE = 0.25f;
-    public const float BARRIERS_OFFSET_BETWEEN_MAX = 5f;
+    public const float BARRIERS_OFFSET_BETWEEN_REDUCE = 0.2f;
+    public const float BARRIERS_OFFSET_BETWEEN_MAX = 4.8f;
     public const float BARRIERS_OFFSET_BETWEEN_MIN = 4f;
     public const float BARRIERS_TIME_TO_NEW_REDUCE = 0.6f;
-    public const float BARRIERS_TIME_TO_NEW_MAX = 4f;
-    public const float BARRIERS_TIME_TO_NEW_MIN = 1.1f;
-    public const string BARRIER_PATH = "Prefabs/Barriers";
+    public const float BARRIERS_TIME_TO_NEW_MAX = 3.6f;
+    public const float BARRIERS_TIME_TO_NEW_MIN = 0.8f;
+    
 
-    public const int LEVEL_PASS = 7;
-
-    public const float PLANE_JUMP = 3f;
+    public const float PLANE_JUMP_FORCE = 3f;
     public const string PLANE_TAG = "Player";
     
     public const string BACKSCENE_TAG = "BackScene";
@@ -36,7 +34,34 @@ public static class Utils {
 
     public const string PLAYER_SAVE_RECORD_SCORE = "RECORD_SCORE";
 
-
     public readonly static Vector3 PLANE_INIT = new Vector3(-3,3);
+
+    private static readonly int[] LEVEL_PASS_LIST = new int[4] { 7,13,19,21 };
+
+    public static readonly GameObject BARRIER_LOAD = Resources.Load<GameObject>("Prefabs/Barriers");
+
+    public static readonly Sprite MEDAL_GOLD_LOAD = Resources.Load<Sprite>("Images/medalGold");
+    public static readonly Sprite MEDAL_SILVER_LOAD = Resources.Load<Sprite>("Images/medalSilver");
+    public static readonly Sprite MEDAL_BRONZE_LOAD = Resources.Load<Sprite>("Images/medalBronze");
+
+    private static int actualLevel = 0; 
+    public static bool IsNextLevel(int score) {
+
+        if(score < LEVEL_PASS_LIST[actualLevel]) {
+            return false;
+        }
+
+        if((actualLevel + 1) < LEVEL_PASS_LIST.Length) {
+            actualLevel++;
+        }
+
+        return true;
+
+
+    }
+    public static void InitLevel() {
+        actualLevel = 0;
+
+    }
 
 }

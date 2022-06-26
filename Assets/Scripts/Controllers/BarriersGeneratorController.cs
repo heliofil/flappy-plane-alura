@@ -8,8 +8,7 @@ public class BarriersGeneratorController : MonoBehaviour
     private float timer;
     private float betweenSize;
     private float timeToNewMax;
-    private float velocity; 
-
+   
     private static BarriersGeneratorController instance = null;
 
     public static BarriersGeneratorController GetInstance() {
@@ -21,22 +20,15 @@ public class BarriersGeneratorController : MonoBehaviour
 
     }
 
-    public void Acelerate() {
-        velocity += Utils.BARRIERS_ACCELERATION;
-
-    }
-
     public void ReduceBetweenSize() {
         betweenSize -= Utils.BARRIERS_OFFSET_BETWEEN_REDUCE;
-        if(betweenSize < Utils.BARRIERS_OFFSET_BETWEEN_MIN) {
-            betweenSize = Utils.BARRIERS_OFFSET_BETWEEN_MIN;
-        }
+        betweenSize = Mathf.Max(betweenSize,Utils.BARRIERS_OFFSET_BETWEEN_MIN);
     }
 
     public void ReduceTimeToNewMax() {
         timeToNewMax -= Utils.BARRIERS_TIME_TO_NEW_REDUCE;
         if(timeToNewMax < Utils.BARRIERS_TIME_TO_NEW_MIN) {
-            timeToNewMax = Utils.BARRIERS_TIME_TO_NEW_MIN + Utils.BARRIERS_OFFSET_BETWEEN_REDUCE;
+            timeToNewMax = Utils.BARRIERS_TIME_TO_NEW_MIN + Utils.BARRIERS_TIME_TO_NEW_REDUCE;
         }
     }
 
@@ -44,7 +36,6 @@ public class BarriersGeneratorController : MonoBehaviour
         timer = 0;
         betweenSize = Utils.BARRIERS_OFFSET_BETWEEN_MAX;
         timeToNewMax = Utils.BARRIERS_TIME_TO_NEW_MAX;
-        velocity = Utils.BARRIERS_VELOCITY;
         DestroyAllBarries();
     }
 
@@ -56,7 +47,6 @@ public class BarriersGeneratorController : MonoBehaviour
         timer = 0;
         betweenSize = Utils.BARRIERS_OFFSET_BETWEEN_MAX;
         timeToNewMax = Utils.BARRIERS_TIME_TO_NEW_MAX;
-        velocity = Utils.BARRIERS_VELOCITY; 
     }
 
     // Update is called once per frame
@@ -65,7 +55,7 @@ public class BarriersGeneratorController : MonoBehaviour
         timer -= Time.deltaTime;
         if(timer < 0 ) {
             float offSet = Random.Range(Utils.BARRIERS_OFFSET_MIN,Utils.BARRIERS_OFFSET_MAX);
-            BarriersController.CreateInstance(transform.position,offSet,betweenSize,velocity);
+            BarriersController.CreateInstance(transform.position,offSet,betweenSize);
             SetNewTime();
         }
     }

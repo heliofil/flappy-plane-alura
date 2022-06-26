@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6745229336953022191}
-  - component: {fileID: 5378101631921304451}
   - component: {fileID: -5666968578841223802}
   m_Layer: 0
   m_Name: Barriers
@@ -35,19 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5378101631921304451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6745229336953022188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a09fc40d4eaffa4c9b20a584fb5847c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: 0.07
 --- !u!114 &-5666968578841223802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216cac28bf12876479127be83aa1d1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Velocity: {fileID: 11400000, guid: ec1bfe54e5671be4d8cf48b40f25c0f3, type: 2}
   offSet: 0
 --- !u!1 &6745229337351345551
 GameObject:

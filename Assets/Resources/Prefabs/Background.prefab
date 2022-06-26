@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3073354652738240346}
   - component: {fileID: 3073354652738240345}
   - component: {fileID: 1240139587549128683}
-  - component: {fileID: 758775500125897686}
   m_Layer: 3
   m_Name: Background
   m_TagString: BackScene
@@ -98,17 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0426fe5eec7f54681f443c0d9db42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Velocity: {fileID: 11400000, guid: 181490698a7063b42bfc5cec1936f768, type: 2}
   IsBackground: 1
---- !u!114 &758775500125897686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3073354652738240344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a09fc40d4eaffa4c9b20a584fb5847c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: 0
