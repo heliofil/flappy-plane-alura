@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AudioSourceController : MonoBehaviour
 {
+
+    public MovimentScriptable velocity;
     
     private AudioSource audioSource;
     public static AudioSource Instance {
@@ -14,9 +16,18 @@ public class AudioSourceController : MonoBehaviour
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+
         Instance = audioSource; 
 
     }
 
-  
+    private void FixedUpdate() {
+        SetPitch();
+    }
+
+    void SetPitch() {
+        audioSource.pitch = velocity.Value*10;
+    }
+
+
 }

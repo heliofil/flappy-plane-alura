@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlaneController : MonoBehaviour
 {
     private new Rigidbody2D rigidbody;
-    private new Animator animator;
+    private Animator animator;
 
     [SerializeField]
     private float jumpForce = Utils.PLANE_JUMP_FORCE;
