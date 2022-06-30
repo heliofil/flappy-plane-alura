@@ -2,27 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaneController : MonoBehaviour
+public class PlaneController : MonoBehaviour,IPlane
 {
+
+    public PlaneScriptable PlaneScriptable;
     private new Rigidbody2D rigidbody;
     private Animator animator;
-
-    [SerializeField]
-    private float jumpForce = Utils.PLANE_JUMP_FORCE;
-
-    private static PlaneController instance = null;
-
-   
     private float finalPosition;
     private bool isJump;
+    private Vector3 initPosition;
 
-    public static PlaneController GetInstance() {
-        if(instance == null) {
-            instance = GameObject.FindWithTag(Utils.PLANE_TAG).GetComponent<PlaneController>();
-        }
-
-        return instance;
-
+    public void Jump() {
+        isJump = true;
     }
 
     public float GetFinalPostion() {
@@ -30,7 +21,7 @@ public class PlaneController : MonoBehaviour
     } 
 
     public void ReNew() {
-        transform.position = Utils.PLANE_INIT;
+        transform.position = initPosition;
         SetPhysics(true);
     }
 
@@ -42,7 +33,8 @@ public class PlaneController : MonoBehaviour
     private void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        transform.position = Utils.PLANE_INIT;
+        initPosition = transform.position;
+        
         finalPosition = transform.position.x - (transform.localScale.x / 2);
         isJump = false;
     }
@@ -50,33 +42,28 @@ public class PlaneController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(Input.GetButtonDown(Utils.BUTTON_FIRE_ONE)) {
-           isJump = true;
+        if(transform.position.y > Utils.PLANE_UP_LIMIT) {
+            return;
         }
+        
+        
 
      }
 
-    private void Jump() {
+    private void FixedUpdate() {
         if(isJump) {
             rigidbody.velocity = Vector2.zero;
-            rigidbody.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
-
+            rigidbody.AddForce(Vector2.up * PlaneScriptable.GetJumpForce(),ForceMode2D.Impulse);
         }
-
         isJump = false;
-    }
-
-    private void FixedUpdate() {
-        Jump();
         animator.SetFloat("Blend",
             rigidbody.velocity.y
             );
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        UIController.GetInstance().GameOver();
+        Atomic.UI.GetInstance().GameOver();
 
     }
-
 
 }

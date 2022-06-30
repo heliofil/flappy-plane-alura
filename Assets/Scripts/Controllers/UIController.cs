@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UIController: MonoBehaviour
 {
 
-    private static UIController instance = null;
+    
 
     public MovimentScriptable VelocityBarriers;
     public MovimentScriptable VelocityBackgroud;
@@ -16,16 +16,7 @@ public class UIController: MonoBehaviour
     private int score;
     private int lastScore;
     public AudioClip SoundScore;
-
-
-    public static UIController GetInstance() {
-        if(instance == null) {
-            instance = FindObjectOfType<UIController>();
-        }
-
-        return instance;
-
-    }
+    public bool isPlayerTwo;
 
 
     public void AddScore() {
@@ -49,15 +40,16 @@ public class UIController: MonoBehaviour
     }
 
     private void NextLevel() {
-        BarriersGeneratorController.GetInstance().ReduceBetweenSize();
-        BarriersGeneratorController.GetInstance().ReduceTimeToNewMax();
+        BarriersGeneratorController barriersGeneratorController = Atomic.PlayerOne.BarriersGenerator.GetInstance();
+        barriersGeneratorController.ReduceBetweenSize();
+        barriersGeneratorController.ReduceTimeToNewMax();
         VelocityBarriers.Accelerate(Utils.BARRIERS_ACCELERATION);
         VelocityBackgroud.Accelerate(Utils.BACKGROUND_ACCELERATION);
     }
 
     public void GameOver() {
         Time.timeScale = 0f;
-        PlaneController.GetInstance().SetPhysics(false);
+        Atomic.PlayerOne.Plane.GetInstance().SetPhysics(false);
         TrySaveScore();
         SetMedalByRecord();
         transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = lastScore.ToString();
@@ -94,8 +86,12 @@ public class UIController: MonoBehaviour
     }
 
     private void ReNew() {
-        PlaneController.GetInstance().ReNew();
-        BarriersGeneratorController.GetInstance().ReNew();
+        Atomic.PlayerOne.Plane.GetInstance().ReNew();
+        Atomic.PlayerOne.BarriersGenerator.GetInstance().ReNew();
+        if(isPlayerTwo) {
+            Atomic.PlayerTwo.Plane.GetInstance().ReNew();
+            Atomic.PlayerTwo.BarriersGenerator.GetInstance().ReNew();
+        }
         VelocityBarriers.Value = Utils.BARRIERS_VELOCITY;
         VelocityBackgroud.Value = Utils.BACKGROUND_VELOCITY;
         Utils.InitLevel();

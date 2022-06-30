@@ -10,7 +10,7 @@ public static class Utils {
 
 
     public const float BARRIERS_OFFSET = 0f;
-    public const float BARRIERS_DESTROY_POSITION = -14f;
+    public const float BARRIERS_DESTROY_POSITION = -44f;
     public const float BARRIERS_OFFSET_MAX = 2.1f;
     public const float BARRIERS_OFFSET_MIN = -1.7f;
     public const float BARRIERS_OFFSET_BETWEEN_REDUCE = 0.2f;
@@ -19,11 +19,15 @@ public static class Utils {
     public const float BARRIERS_TIME_TO_NEW_REDUCE = 0.6f;
     public const float BARRIERS_TIME_TO_NEW_MAX = 3.6f;
     public const float BARRIERS_TIME_TO_NEW_MIN = 0.8f;
-    
 
+
+    public const float PLANE_UP_LIMIT = 5.5f;
     public const float PLANE_JUMP_FORCE = 3f;
     public const string PLANE_TAG = "Player";
-    
+    public static string PLANE2_TAG = "Player2";
+    public static string BARRIERS_GENERATOR_TAG = "Respawn";
+    public static string BARRIERS_GENERATOR2_TAG = "Respawn2";
+
     public const string BACKSCENE_TAG = "BackScene";
 
     public const string UI_TAG = "GameController";
@@ -32,9 +36,9 @@ public static class Utils {
 
     public const string BUTTON_FIRE_ONE = "Fire1";
 
-    public const string PLAYER_SAVE_RECORD_SCORE = "RECORD_SCORE";
+    public const string BUTTON_JUMP = "Jump";
 
-    public readonly static Vector3 PLANE_INIT = new Vector3(-3,3);
+    public const string PLAYER_SAVE_RECORD_SCORE = "RECORD_SCORE";
 
     private static readonly int[] LEVEL_PASS_LIST = new int[4] { 7,13,19,21 };
 
@@ -44,7 +48,9 @@ public static class Utils {
     public static readonly Sprite MEDAL_SILVER_LOAD = Resources.Load<Sprite>("Images/medalSilver");
     public static readonly Sprite MEDAL_BRONZE_LOAD = Resources.Load<Sprite>("Images/medalBronze");
 
-    private static int actualLevel = 0; 
+    private static int actualLevel = 0;
+    
+
     public static bool IsNextLevel(int score) {
 
         if(score < LEVEL_PASS_LIST[actualLevel]) {
@@ -63,5 +69,7 @@ public static class Utils {
         actualLevel = 0;
 
     }
+
+    
 
 }

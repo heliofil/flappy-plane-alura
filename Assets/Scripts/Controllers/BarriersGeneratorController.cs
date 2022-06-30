@@ -8,18 +8,9 @@ public class BarriersGeneratorController : MonoBehaviour
     private float timer;
     private float betweenSize;
     private float timeToNewMax;
+
+    public bool AutoPlayer;
    
-    private static BarriersGeneratorController instance = null;
-
-    public static BarriersGeneratorController GetInstance() {
-        if(instance == null) {
-            instance = FindObjectOfType<BarriersGeneratorController>();
-        }
-
-        return instance;
-
-    }
-
     public void ReduceBetweenSize() {
         betweenSize -= Utils.BARRIERS_OFFSET_BETWEEN_REDUCE;
         betweenSize = Mathf.Max(betweenSize,Utils.BARRIERS_OFFSET_BETWEEN_MIN);
@@ -47,14 +38,19 @@ public class BarriersGeneratorController : MonoBehaviour
         timer = 0;
         betweenSize = Utils.BARRIERS_OFFSET_BETWEEN_MAX;
         timeToNewMax = Utils.BARRIERS_TIME_TO_NEW_MAX;
+        StartCoroutine(CreateBarriers());
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private IEnumerator CreateBarriers()
     {
-        timer -= Time.deltaTime;
-        if(timer < 0 ) {
+
+        while(true) {
+            yield return new WaitForSeconds(timer);
             float offSet = Random.Range(Utils.BARRIERS_OFFSET_MIN,Utils.BARRIERS_OFFSET_MAX);
+            if(AutoPlayer) {
+                offSet = Utils.BARRIERS_OFFSET_MAX/2;
+            } 
             BarriersController.CreateInstance(transform.position,offSet,betweenSize);
             SetNewTime();
         }

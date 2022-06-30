@@ -18,7 +18,7 @@ public class BackSceneController : MonoBehaviour
 
         initialPosition = transform.position;
 
-        imageSize = GetComponent<SpriteRenderer>().size.x * transform.localScale.x;
+        imageSize = GetComponent<SpriteRenderer>().size.x * (transform.localScale.x/2);
 
         restartPosition = initialPosition.x-imageSize;
 

@@ -53,8 +53,8 @@ public class BarriersController :MonoBehaviour {
             return;
         }
         
-        if(PlaneController.GetInstance().GetFinalPostion() > transform.position.x) {
-            UIController.GetInstance().AddScore();
+        if(Atomic.PlayerOne.Plane.GetInstance().GetFinalPostion() > transform.position.x) {
+            Atomic.UI.GetInstance().AddScore();
             isScore = false;
         }
 
