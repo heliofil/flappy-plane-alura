@@ -9,14 +9,18 @@ public class UIController: MonoBehaviour
 
     public MovimentScriptable VelocityBarriers;
     public MovimentScriptable VelocityBackgroud;
+    public AudioClip SoundScore;
+    public bool isPlayerTwo;
 
+    private TextMeshProUGUI gameOverText;
     private TextMeshProUGUI scoreText;
     private GameObject gameOver;
     private int levelScore;
     private int score;
     private int lastScore;
-    public AudioClip SoundScore;
-    public bool isPlayerTwo;
+    private Image medal;
+
+
 
 
     public void AddScore() {
@@ -52,13 +56,12 @@ public class UIController: MonoBehaviour
         Atomic.PlayerOne.Plane.GetInstance().SetPhysics(false);
         TrySaveScore();
         SetMedalByRecord();
-        transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = lastScore.ToString();
+        gameOverText.text = lastScore.ToString();
         gameOver.SetActive(true);
     }
 
     public void Restart() {
         gameOver = transform.GetChild(0).gameObject;
-        scoreText = transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         score = 0;
         levelScore = 0;
         scoreText.text = score.ToString();
@@ -70,7 +73,7 @@ public class UIController: MonoBehaviour
 
     private void SetMedalByRecord() {
 
-        Image medal = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>();
+       
         if(score > (lastScore - 1)) {
             medal.sprite = Utils.MEDAL_GOLD_LOAD;
             return;
@@ -95,6 +98,13 @@ public class UIController: MonoBehaviour
         VelocityBarriers.Value = Utils.BARRIERS_VELOCITY;
         VelocityBackgroud.Value = Utils.BACKGROUND_VELOCITY;
         Utils.InitLevel();
+    }
+
+    private void Awake() {
+        scoreText = transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        gameOverText = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        medal = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>();
+        gameOver = transform.GetChild(0).gameObject;
     }
 
     private void Start() {

@@ -62,8 +62,13 @@ public class PlaneController : MonoBehaviour,IPlane
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
+
         Atomic.UI.GetInstance().GameOver();
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        Atomic.UI.GetInstance().AddScore();
     }
 
 }

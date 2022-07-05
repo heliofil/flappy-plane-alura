@@ -76,6 +76,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
+    <Compile Include="Assets\Scripts\AutoPlayer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\Scripts\Controllers\HandController.cs" />
     <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
     <Compile Include="Assets\Scripts\Controllers\BackSceneController.cs" />
     <Compile Include="Assets\Scripts\Controllers\Interface\IPlane.cs" />
     <Compile Include="Assets\Scripts\Controllers\AudioSourceController.cs" />
@@ -102,8 +104,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
-    <Compile Include="Assets\Scripts\AutoPlayer.cs" />
+    <Compile Include="Assets\Scripts\Controllers\BarriersDestoyerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

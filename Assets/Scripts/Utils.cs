@@ -11,14 +11,14 @@ public static class Utils {
 
     public const float BARRIERS_OFFSET = 0f;
     public const float BARRIERS_DESTROY_POSITION = -44f;
-    public const float BARRIERS_OFFSET_MAX = 2.1f;
-    public const float BARRIERS_OFFSET_MIN = -1.7f;
+    public const float BARRIERS_OFFSET_MAX = 2f;
+    public const float BARRIERS_OFFSET_MIN = -1f;
     public const float BARRIERS_OFFSET_BETWEEN_REDUCE = 0.2f;
     public const float BARRIERS_OFFSET_BETWEEN_MAX = 4.8f;
     public const float BARRIERS_OFFSET_BETWEEN_MIN = 4f;
     public const float BARRIERS_TIME_TO_NEW_REDUCE = 0.6f;
-    public const float BARRIERS_TIME_TO_NEW_MAX = 3.6f;
-    public const float BARRIERS_TIME_TO_NEW_MIN = 0.8f;
+    public const float BARRIERS_TIME_TO_NEW_MAX = 4.6f;
+    public const float BARRIERS_TIME_TO_NEW_MIN = 1.2f;
 
 
     public const float PLANE_UP_LIMIT = 5.5f;
@@ -40,7 +40,7 @@ public static class Utils {
 
     public const string PLAYER_SAVE_RECORD_SCORE = "RECORD_SCORE";
 
-    private static readonly int[] LEVEL_PASS_LIST = new int[4] { 7,13,19,21 };
+    private static readonly int[] LEVEL_PASS_LIST = new int[4] { 14,26,38,42 };
 
     public static readonly GameObject BARRIER_LOAD = Resources.Load<GameObject>("Prefabs/Barriers");
 

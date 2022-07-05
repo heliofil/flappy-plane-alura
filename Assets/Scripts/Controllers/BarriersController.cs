@@ -8,9 +8,6 @@ public class BarriersController :MonoBehaviour {
     
     [SerializeField]
     private float offSet;
-    private bool isScore = true;
-
-
     public static void CreateInstance(Vector3 position,float offet,float betweenSize) {
         GameObject gameObject = Instantiate
             (Utils.BARRIER_LOAD,
@@ -38,30 +35,15 @@ public class BarriersController :MonoBehaviour {
         Destroy(gameObject);
     }
 
-    void Start() => transform.Translate(Vector3.up * this.offSet);
-
-    void FixedUpdate() {
-        
-        if(transform.position.x < Utils.BARRIERS_DESTROY_POSITION) {
-            Destroy(gameObject);
-        }
-
-        transform.Translate(Velocity.Move());
-
-
-        if(!isScore) {
-            return;
-        }
-        
-        if(Atomic.PlayerOne.Plane.GetInstance().GetFinalPostion() > transform.position.x) {
-            Atomic.UI.GetInstance().AddScore();
-            isScore = false;
-        }
-
+    void Start() {
+        transform.Translate(Vector3.up * this.offSet);
+       
     }
 
+    private void FixedUpdate() {
 
-
-    
+       transform.Translate(Velocity.Move());
+      
+    }
 
 }
