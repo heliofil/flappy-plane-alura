@@ -8,6 +8,7 @@ public class BarriersGeneratorController : MonoBehaviour
     private float timer;
     private float betweenSize;
     private float timeToNewMax;
+    private bool stopGenerator;
 
     public bool AutoPlayer;
    
@@ -28,6 +29,16 @@ public class BarriersGeneratorController : MonoBehaviour
         betweenSize = Utils.BARRIERS_OFFSET_BETWEEN_MAX;
         timeToNewMax = Utils.BARRIERS_TIME_TO_NEW_MAX;
         DestroyAllBarries();
+        stopGenerator = true;
+    }
+
+    public void StopAllBarries() {
+        stopGenerator = false;
+        BarriersController[] barriersList = GetComponentsInChildren<BarriersController>();
+        foreach(BarriersController barriers in barriersList) {
+            barriers.enabled = false;
+        }
+
     }
 
     private void SetNewTime() {
@@ -35,30 +46,29 @@ public class BarriersGeneratorController : MonoBehaviour
     }
 
     private void Start() {
-        timer = 0;
-        betweenSize = Utils.BARRIERS_OFFSET_BETWEEN_MAX;
-        timeToNewMax = Utils.BARRIERS_TIME_TO_NEW_MAX;
+        ReNew();
         StartCoroutine(CreateBarriers());
     }
 
     // Update is called once per frame
     private IEnumerator CreateBarriers()
     {
-
         while(true) {
             yield return new WaitForSeconds(timer);
-            float offSet = Random.Range(Utils.BARRIERS_OFFSET_MIN,Utils.BARRIERS_OFFSET_MAX);
-            if(AutoPlayer) {
-                offSet = Utils.BARRIERS_OFFSET_MAX/2;
-            } 
-            BarriersController.CreateInstance(transform.position,offSet,betweenSize);
-            SetNewTime();
+            if(stopGenerator) {
+                float offSet = Random.Range(Utils.BARRIERS_OFFSET_MIN,Utils.BARRIERS_OFFSET_MAX);
+                if(AutoPlayer) {
+                    offSet = Utils.BARRIERS_OFFSET_MAX/2;
+                }
+                BarriersController.CreateInstance(transform.position,offSet,betweenSize,transform);
+                SetNewTime();
+            }
         }
     }
 
     private void DestroyAllBarries() {
-
-        BarriersController[] barriersList = FindObjectsOfType<BarriersController>();
+        stopGenerator = false;
+        BarriersController[] barriersList = GetComponentsInChildren<BarriersController>();
         foreach(BarriersController barriers in barriersList) {
             barriers.SelfDestroy();
         }

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlaneController : MonoBehaviour,IPlane
 {
-
+    
     public PlaneScriptable PlaneScriptable;
     private new Rigidbody2D rigidbody;
     private Animator animator;
+    private ParticleSystem particles;
     private float finalPosition;
     private bool isJump;
     private Vector3 initPosition;
@@ -21,6 +22,9 @@ public class PlaneController : MonoBehaviour,IPlane
     } 
 
     public void ReNew() {
+        enabled = true;
+        particles.Play(true);
+        animator.speed = 1;
         transform.position = initPosition;
         SetPhysics(true);
     }
@@ -30,14 +34,30 @@ public class PlaneController : MonoBehaviour,IPlane
 
     }
 
+    public void StopGame() {
+        enabled = false;
+        particles.Stop();
+        animator.speed = 0;
+        SetPhysics(false);
+    }
+
+    public void RestartGame() {
+        enabled = true;
+        animator.speed = 1;
+    }
+
+
     private void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        particles = GetComponent<ParticleSystem>();
         initPosition = transform.position;
         
         finalPosition = transform.position.x - (transform.localScale.x / 2);
         isJump = false;
+        animator.SetBool(Utils.FLY_ANIMATOR,true);
     }
+
 
     // Update is called once per frame
     private void Update()
@@ -56,16 +76,18 @@ public class PlaneController : MonoBehaviour,IPlane
             rigidbody.AddForce(Vector2.up * PlaneScriptable.GetJumpForce(),ForceMode2D.Impulse);
         }
         isJump = false;
-        animator.SetFloat("Blend",
+        animator.SetFloat(Utils.BLEND_ANIMATOR,
             rigidbody.velocity.y
             );
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
 
-        Atomic.UI.GetInstance().GameOver();
+        Atomic.UI.GetInstance().TryGameOverOrStop(tag);
 
     }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision) {
         Atomic.UI.GetInstance().AddScore();

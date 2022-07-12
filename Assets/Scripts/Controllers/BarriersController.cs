@@ -8,11 +8,12 @@ public class BarriersController :MonoBehaviour {
     
     [SerializeField]
     private float offSet;
-    public static void CreateInstance(Vector3 position,float offet,float betweenSize) {
+    public static void CreateInstance(Vector3 position,float offet,float betweenSize,Transform transform) {
         GameObject gameObject = Instantiate
             (Utils.BARRIER_LOAD,
             position,
-            Quaternion.identity);
+            Quaternion.identity,
+            transform);
 
         gameObject.tag = Utils.BACKSCENE_TAG;
 

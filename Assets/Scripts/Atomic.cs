@@ -2,8 +2,18 @@
 using UnityEngine;
 
 public class Atomic {
-
+    
     public class PlayerOne {
+
+        private static PlayerController instance = null;
+        public static PlayerController GetInstance() {
+            if(instance == null) {
+                instance = GameObject.FindWithTag(Utils.PLAYER_TAG).GetComponent<PlayerController>();
+            }
+
+            return instance;
+        }
+
 
         public class Plane:MonoBehaviour {
             private static PlaneController instance = null;
@@ -33,6 +43,16 @@ public class Atomic {
     }
 
     public class PlayerTwo {
+
+        private static PlayerController instance = null;
+        public static PlayerController GetInstance() {
+            if(instance == null) {
+                instance = GameObject.FindWithTag(Utils.PLAYER2_TAG).GetComponent<PlayerController>();
+            }
+
+            return instance;
+        }
+
 
         public class Plane:MonoBehaviour {
             private static PlaneController instance = null;
