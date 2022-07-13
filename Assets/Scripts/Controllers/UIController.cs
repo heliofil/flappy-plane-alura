@@ -17,9 +17,12 @@ public class UIController: MonoBehaviour
     private int score;
     private int lastScore;
     private Image medal;
-    PlayerController playerOne;
-    PlayerController playerTwo;
-
+    private PlayerController playerOne;
+    private PlayerController playerTwo;
+    private PlaneController planeOne;
+    private PlaneController planeTwo;
+    private BarriersGeneratorController barriersGeneratorControllerOne;
+    private BarriersGeneratorController barriersGeneratorControllerTwo;
     public void AddScore() {
         score++;
         levelScore++;
@@ -54,10 +57,10 @@ public class UIController: MonoBehaviour
     private void testTwoPlayersRecovery() {
         if(isPlayerTwo) {
             if(playerOne.IsStopped()) {
-                Atomic.PlayerOne.GetInstance().AddRecovery();
+                playerOne.AddRecovery();
             }
             if(playerTwo.IsStopped()) {
-                Atomic.PlayerTwo.GetInstance().AddRecovery();
+                playerTwo.AddRecovery();
             }
         }
     }
@@ -72,9 +75,13 @@ public class UIController: MonoBehaviour
     }
 
     private void NextLevel() {
-        BarriersGeneratorController barriersGeneratorController = Atomic.PlayerOne.BarriersGenerator.GetInstance();
-        barriersGeneratorController.ReduceBetweenSize();
-        barriersGeneratorController.ReduceTimeToNewMax();
+       
+        barriersGeneratorControllerOne.ReduceBetweenSize();
+        barriersGeneratorControllerOne.ReduceTimeToNewMax();
+        if(isPlayerTwo) {
+            barriersGeneratorControllerTwo.ReduceBetweenSize();
+            barriersGeneratorControllerTwo.ReduceTimeToNewMax();
+        }
         VelocityBarriers.Accelerate(Utils.BARRIERS_ACCELERATION);
         VelocityBackgroud.Accelerate(Utils.BACKGROUND_ACCELERATION);
     }
@@ -85,6 +92,9 @@ public class UIController: MonoBehaviour
         TrySaveScore();
         SetMedalByRecord();
         gameOverText.text = lastScore.ToString();
+        if(isPlayerTwo) {
+            Atomic.StopPlayer.GetInstance().Close();
+        }
         gameOver.SetActive(true);
 
     }
@@ -100,6 +110,19 @@ public class UIController: MonoBehaviour
         ReNew();
     }
 
+
+    public void StartGamePlay() {
+        planeOne.SetPhysics(true);
+        planeOne.Jump();
+       barriersGeneratorControllerOne.StartPlay();
+        if(isPlayerTwo) {
+            planeTwo.SetPhysics(true);
+            planeTwo.Jump();
+            barriersGeneratorControllerTwo.StartPlay();
+        }
+    }
+
+   
     private void SetMedalByRecord() {
 
        
@@ -134,16 +157,22 @@ public class UIController: MonoBehaviour
         medal = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<Image>();
         gameOver = transform.GetChild(0).gameObject;
         playerOne = Atomic.PlayerOne.GetInstance();
+        planeOne = Atomic.PlayerOne.Plane.GetInstance();
+        barriersGeneratorControllerOne = Atomic.PlayerOne.BarriersGenerator.GetInstance();
         if(isPlayerTwo) {
             playerTwo = Atomic.PlayerTwo.GetInstance();
+            planeTwo = Atomic.PlayerTwo.Plane.GetInstance();
+            barriersGeneratorControllerTwo = Atomic.PlayerTwo.BarriersGenerator.GetInstance();
         }
-        
-
 
     }
 
     private void Start() {
         Restart();
+        planeOne.SetPhysics(false);
+        if(isPlayerTwo) {
+            planeTwo.SetPhysics(false);
+        }
     }
 
 }

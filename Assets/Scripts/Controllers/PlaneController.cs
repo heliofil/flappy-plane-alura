@@ -12,11 +12,12 @@ public class PlaneController : MonoBehaviour,IPlane
     private float finalPosition;
     private bool isJump;
     private Vector3 initPosition;
-
+    
     public void Jump() {
         isJump = true;
     }
 
+   
     public float GetFinalPostion() {
         return finalPosition;
     } 
@@ -46,13 +47,11 @@ public class PlaneController : MonoBehaviour,IPlane
         animator.speed = 1;
     }
 
-
     private void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         particles = GetComponent<ParticleSystem>();
         initPosition = transform.position;
-        
         finalPosition = transform.position.x - (transform.localScale.x / 2);
         isJump = false;
         animator.SetBool(Utils.FLY_ANIMATOR,true);
@@ -86,6 +85,7 @@ public class PlaneController : MonoBehaviour,IPlane
         Atomic.UI.GetInstance().TryGameOverOrStop(tag);
 
     }
+
 
 
 

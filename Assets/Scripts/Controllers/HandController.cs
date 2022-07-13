@@ -11,6 +11,7 @@ public class HandController : MonoBehaviour
     void Update()
     {
         if(Input.GetButton(Utils.BUTTON_FIRE_ONE)) {
+            Atomic.UI.GetInstance().StartGamePlay();
             Destroy(gameObject);
         }
     }

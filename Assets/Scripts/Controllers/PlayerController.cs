@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private BarriersGeneratorController barriersGeneratorController;
     private BackSceneController[] backSceneControllerList;
     private PlaneController planeController;
+    private StopPlayerController stopPlayerController;
 
     private bool stopped;
     private int recovery;
@@ -18,25 +19,24 @@ public class PlayerController : MonoBehaviour
 
     public void AddRecovery() {
         recovery++;
-        if(recovery > Utils.POINTS_TO_RESTART) {
-            RestartGame();
-        }
+        stopPlayerController.SetPointsToRevive(recovery);
+        if(recovery >= Utils.POINTS_TO_RESTART) {
+            stopPlayerController.Close();
+            Renew();
+        } 
     }
 
     public void StopGame() {
         StopCarousel();
         barriersGeneratorController.StopAllBarries();
         planeController.StopGame();
+        stopPlayerController.StopByPlayer(transform.GetChild(0).GetComponent<Camera>());
         stopped = true;
     }
 
-    public void RestartGame() {
+    public void Renew() {
         recovery = 0;
         stopped = false;
-        Renew();
-    }
-
-    public void Renew() {
         planeController.ReNew();
         barriersGeneratorController.ReNew();
         ReStartCarousel();
@@ -57,6 +57,12 @@ public class PlayerController : MonoBehaviour
 
     private void Start() {
         stopped = false;
+
+    }
+
+
+    private void Awake() {
+        stopPlayerController = Atomic.StopPlayer.GetInstance();
         backSceneControllerList = GetComponentsInChildren<BackSceneController>();
         if(this.CompareTag(Utils.PLAYER_TAG)) {
             barriersGeneratorController = Atomic.PlayerOne.BarriersGenerator.GetInstance();
@@ -65,7 +71,7 @@ public class PlayerController : MonoBehaviour
         }
         barriersGeneratorController = Atomic.PlayerTwo.BarriersGenerator.GetInstance();
         planeController = Atomic.PlayerTwo.Plane.GetInstance();
-
+        
     }
 
 

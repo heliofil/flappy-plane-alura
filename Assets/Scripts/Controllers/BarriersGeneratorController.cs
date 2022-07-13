@@ -8,7 +8,7 @@ public class BarriersGeneratorController : MonoBehaviour
     private float timer;
     private float betweenSize;
     private float timeToNewMax;
-    private bool stopGenerator;
+    private bool generateBarries;
 
     public bool AutoPlayer;
    
@@ -24,16 +24,20 @@ public class BarriersGeneratorController : MonoBehaviour
         }
     }
 
-    public void ReNew() {
+    public void StartPlay() {
         timer = 0;
         betweenSize = Utils.BARRIERS_OFFSET_BETWEEN_MAX;
         timeToNewMax = Utils.BARRIERS_TIME_TO_NEW_MAX;
+        generateBarries = true;
+    }
+
+    public void ReNew() {
+        StartPlay();
         DestroyAllBarries();
-        stopGenerator = true;
     }
 
     public void StopAllBarries() {
-        stopGenerator = false;
+        generateBarries = false;
         BarriersController[] barriersList = GetComponentsInChildren<BarriersController>();
         foreach(BarriersController barriers in barriersList) {
             barriers.enabled = false;
@@ -45,8 +49,12 @@ public class BarriersGeneratorController : MonoBehaviour
         timer = Random.Range(Utils.BARRIERS_TIME_TO_NEW_MIN,timeToNewMax);
     }
 
+
+    private void Awake() {
+        generateBarries = false;
+    }
+
     private void Start() {
-        ReNew();
         StartCoroutine(CreateBarriers());
     }
 
@@ -55,7 +63,7 @@ public class BarriersGeneratorController : MonoBehaviour
     {
         while(true) {
             yield return new WaitForSeconds(timer);
-            if(stopGenerator) {
+            if(generateBarries) {
                 float offSet = Random.Range(Utils.BARRIERS_OFFSET_MIN,Utils.BARRIERS_OFFSET_MAX);
                 if(AutoPlayer) {
                     offSet = Utils.BARRIERS_OFFSET_MAX/2;
@@ -67,7 +75,6 @@ public class BarriersGeneratorController : MonoBehaviour
     }
 
     private void DestroyAllBarries() {
-        stopGenerator = false;
         BarriersController[] barriersList = GetComponentsInChildren<BarriersController>();
         foreach(BarriersController barriers in barriersList) {
             barriers.SelfDestroy();

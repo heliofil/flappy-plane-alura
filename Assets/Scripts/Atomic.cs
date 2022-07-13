@@ -93,8 +93,17 @@ public class Atomic {
         }
     }
 
+    public class StopPlayer:MonoBehaviour {
+        private static StopPlayerController instance = null;
+        public static StopPlayerController GetInstance() {
+            if(instance == null) {
+                instance = FindObjectOfType<StopPlayerController>();
+            }
 
+            return instance;
 
+        }
+    }
 
 
 }

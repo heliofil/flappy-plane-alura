@@ -679,7 +679,7 @@ MonoBehaviour:
   VelocityBarriers: {fileID: 11400000, guid: ec1bfe54e5671be4d8cf48b40f25c0f3, type: 2}
   VelocityBackgroud: {fileID: 11400000, guid: 181490698a7063b42bfc5cec1936f768, type: 2}
   SoundScore: {fileID: 8300000, guid: 7c6d759edf772194c8c328193baa344a, type: 3}
-  isPlayerTwo: 0
+  isPlayerTwo: 1
 --- !u!114 &-5528221460460048867
 MonoBehaviour:
   m_ObjectHideFlags: 0
